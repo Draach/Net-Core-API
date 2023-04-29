@@ -1,11 +1,11 @@
 ﻿namespace RestAPI.Domain.Repository
 {
-    public interface IRepository<TEntity, TEntityGuid>
+    public interface IRepository<TEntity, TEntityId>
     {
-        IEnumerable<TEntity> GetAll();
-        TEntity GetById(TEntityGuid guid);
-        TEntity Add(TEntity entity);
-        TEntity Update(TEntity entity);
-        bool Delete(TEntityGuid guid);
+        Task<IEnumerable<TEntity>> GetAll();
+        Task<TEntity> GetById(TEntityId id);
+        Task<TEntity> Add(TEntity entity);
+        Task<TEntity> Update(TEntity entity);
+        Task<bool> Delete(TEntityId id);
     }
 }

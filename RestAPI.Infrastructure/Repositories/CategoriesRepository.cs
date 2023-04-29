@@ -11,37 +11,37 @@ namespace RestAPI.Infrastructure.Repositories
         {
             _context = context;
         }
-        public Category Add(Category entity)
+        public async Task<Category> Add(Category entity)
         {
-            _context.Categories.Add(entity);
-            _context.SaveChanges();
+            await _context.Categories.AddAsync(entity);
+            await _context.SaveChangesAsync();
             return entity;
         }
 
-        public bool Delete(Guid guid)
+        public async Task<bool> Delete(Guid guid)
         {
             bool opResult = false;
-            Category category = _context.Categories.FirstOrDefault(c => c.Id == guid);
+            Category category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == guid);
             if (category is not null)
             {
-                _context.Remove(category);
-                _context.SaveChanges();
+                _context.Categories.Remove(category);
+                await _context.SaveChangesAsync();
                 opResult = true;
             }
             return opResult;
         }
 
-        public IEnumerable<Category> GetAll()
+        public async Task<IEnumerable<Category>> GetAll()
         {
-            return _context.Categories.ToList();
+            return await _context.Categories.ToListAsync();
         }
 
-        public Category GetById(Guid guid)
+        public async Task<Category> GetById(Guid guid)
         {
-            return _context.Categories.Include(c => c.Products).FirstOrDefault(c => c.Id == guid);
+            return await _context.Categories.Include(c => c.Products).FirstOrDefaultAsync(c => c.Id == guid);
         }
 
-        public Category Update(Category entity)
+        public async Task<Category> Update(Category entity)
         {
             throw new NotImplementedException();
         }

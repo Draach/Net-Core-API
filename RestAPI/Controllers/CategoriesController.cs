@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RestAPI.Domain.Categories;
 using RestAPI.Domain.Products;
 using RestAPI.Infrastructure.Repositories;
@@ -20,11 +21,11 @@ namespace RestAPI.Controllers
 
         // GET: api/<CategoriesController>
         [HttpGet]
-        public ActionResult<IEnumerable<CategoryDto>> Get()
+        public async Task<ActionResult<IEnumerable<CategoryDto>>> Get()
         {
             List<CategoryDto> responseCategories = new List<CategoryDto>();
 
-            List<Category> categories = _categoriesRepository.GetAll().ToList();
+            List<Category> categories = (List<Category>)await _categoriesRepository.GetAll();
 
             foreach (Category category in categories)
             {
@@ -40,7 +41,7 @@ namespace RestAPI.Controllers
 
         // GET api/<CategoriesController>/5
         [HttpGet("{id}")]
-        public ActionResult<CategoryWithProducts> Get(Guid id)
+        public async Task<ActionResult<CategoryWithProducts>> Get(Guid id)
         {
             ActionResult result;
             if (id == Guid.Empty)
@@ -49,7 +50,7 @@ namespace RestAPI.Controllers
             }
             else
             {
-                Category category = _categoriesRepository.GetById(id);
+                Category category = await _categoriesRepository.GetById(id);
                 if (category is not null)
                 {
                     List<ProductDto> productDtos = new List<ProductDto>();
@@ -78,7 +79,7 @@ namespace RestAPI.Controllers
 
         // POST api/<CategoriesController>
         [HttpPost]
-        public ActionResult<CategoryDto> Post([FromBody] CategoryCreateDto categoryCreateDto)
+        public async Task<ActionResult<CategoryDto>> Post([FromBody] CategoryCreateDto categoryCreateDto)
         {
             ActionResult result;
             if (categoryCreateDto == null)
@@ -94,7 +95,7 @@ namespace RestAPI.Controllers
 
                 Category newCategory = new Category(newCategoryDto);
 
-                _categoriesRepository.Add(newCategory);
+                await _categoriesRepository.Add(newCategory);
                 result = CreatedAtRoute("", newCategory);
             }
 
@@ -104,15 +105,17 @@ namespace RestAPI.Controllers
 
         // PUT api/<CategoriesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task Put(int id, [FromBody] string value)
         {
         }
 
         // DELETE api/<CategoriesController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(Guid id)
+        [Authorize]
+        [ProducesResponseType(typeof(void), 401)]
+        public async Task<ActionResult> Delete(Guid id)
         {
-            bool result = _categoriesRepository.Delete(id);
+            bool result = await _categoriesRepository.Delete(id);
             if (!result) return NotFound();
 
             return NoContent();

@@ -1,6 +1,6 @@
 ﻿namespace RestAPI.Domain.Products
 {
-    public class ProductCreateDto
+    public record ProductCreateDto
     {
         public string Name { get; set; }
         public string Description { get; set; }

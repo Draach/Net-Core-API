@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RestAPI.Domain.Categories;
 using RestAPI.Domain.Products;
 using RestAPI.Infrastructure.Repositories;
@@ -22,10 +23,10 @@ namespace RestAPI.Controllers
 
         // GET: api/<ProductsController>
         [HttpGet]
-        public ActionResult<IEnumerable<ProductDto>> Get()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> Get()
         {
             List<ProductDto> productDtos = new List<ProductDto>();
-            var products = _productsRepository.GetAll();
+            var products = await _productsRepository.GetAll();
 
             foreach (var product in products)
             {
@@ -42,7 +43,7 @@ namespace RestAPI.Controllers
 
         // GET api/<ProductsController>/5
         [HttpGet("{id}")]
-        public ActionResult<ProductWithCategoriesDto> Get(Guid id)
+        public async Task<ActionResult<ProductWithCategoriesDto>> Get(Guid id)
         {
             ActionResult result;
             if (id == Guid.Empty)
@@ -51,7 +52,7 @@ namespace RestAPI.Controllers
             }
             else
             {
-                Product product = _productsRepository.GetById(id);
+                Product product = await _productsRepository.GetById(id);
                 if (product is not null)
                 {
                     List<CategoryDto> categoriesDtos = new List<CategoryDto>();
@@ -83,14 +84,15 @@ namespace RestAPI.Controllers
         [ProducesResponseType(typeof(ProductDto), 201)]
         [ProducesResponseType(typeof(ProductDto), 400)]
         [ProducesResponseType(typeof(ProductDto), 500)]
-        public ActionResult<ProductDto> Post([FromBody] ProductCreateDto productDto)
+        public async Task<ActionResult<ProductDto>> Post([FromBody] ProductCreateDto productDto)
         {
             ActionResult result;
             if (productDto == null)
             {
                 result = BadRequest();
             }
-            else if (productDto.Name == "Coca")
+            // TODO: Clause only for testing purposes. Remove.
+            else if (productDto.Name == "ExistingName")
             {
                 ModelState.AddModelError("ExistingName", "There is already an existing product with that name.");
                 return BadRequest(ModelState);
@@ -102,7 +104,7 @@ namespace RestAPI.Controllers
                     Product product = new Product(productDto);
                     foreach (var categoryId in productDto.CategoriesIds)
                     {
-                        product.Categories.Add(_categoriesRepository.GetById(categoryId));
+                        product.Categories.Add(await _categoriesRepository.GetById(categoryId));
                     }
                     result = CreatedAtRoute("", _productsRepository.Add(product));
                 }
@@ -119,15 +121,17 @@ namespace RestAPI.Controllers
 
         // PUT api/<ProductsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task Put(int id, [FromBody] string value)
         {
         }
 
         // DELETE api/<ProductsController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(Guid id)
+        [Authorize]
+        [ProducesResponseType(typeof(void), 401)]
+        public async Task<ActionResult> Delete(Guid id)
         {
-            bool result = _productsRepository.Delete(id);
+            bool result = await _productsRepository.Delete(id);
             if (!result) return NotFound();
 
             return NoContent();

@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "J5u3kG5qfV156ipFP+dQrxYtY+78LIskuQ00vjlnBL98sHMNoCsGbv/9ZWrNeFHyuebKlW3AWgs991Y+gyeSQw==",
+  "dgSpecHash": "FYXF5dZEUSH5DcvpGcf3iB7ibRz9jMX9rcSpg7D20L46F0EsmfWiaF+buxxxNWAig3U2fOeAB8B2hH/nYP250g==",
   "success": true,
   "projectFilePath": "D:\\Workspace\\Personal\\RestAPI\\RestAPI\\RestAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Julio\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Julio\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\Julio\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\Julio\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.16\\microsoft.aspnetcore.authentication.jwtbearer.6.0.16.nupkg.sha512",
     "C:\\Users\\Julio\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Julio\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\Julio\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.1\\microsoft.data.sqlclient.5.0.1.nupkg.sha512",

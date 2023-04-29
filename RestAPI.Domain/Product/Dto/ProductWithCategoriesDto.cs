@@ -2,7 +2,7 @@
 
 namespace RestAPI.Domain.Products
 {
-    public class ProductWithCategoriesDto
+    public record ProductWithCategoriesDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

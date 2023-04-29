@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestAPI.Domain.Categories;
 using RestAPI.Domain.Products;
+using RestAPI.Domain.Users;
 
 namespace RestAPI.Infrastructure
 {
@@ -10,6 +11,8 @@ namespace RestAPI.Infrastructure
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

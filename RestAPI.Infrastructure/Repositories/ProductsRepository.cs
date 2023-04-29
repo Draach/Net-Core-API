@@ -12,37 +12,37 @@ namespace RestAPI.Infrastructure.Repositories
             _context = eCommerceDBContext;
         }
 
-        public Product Add(Product entity)
+        public async Task<Product> Add(Product entity)
         {
-            _context.Add(entity);
-            _context.SaveChanges();
+            await _context.Products.AddAsync(entity);
+            await _context.SaveChangesAsync();
             return entity;
         }
 
-        public bool Delete(Guid guid)
+        public async Task<bool> Delete(Guid guid)
         {
             bool opResult = false;
-            Product product = _context.Products.Where(p => p.Id == guid).FirstOrDefault();
+            Product product = await _context.Products.Where(p => p.Id == guid).FirstOrDefaultAsync();
             if (product != null)
             {
-                _context.Remove(product);
-                _context.SaveChanges();
+                _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
                 opResult = true;
             }
             return opResult;
         }
 
-        public IEnumerable<Product> GetAll()
+        public async Task<IEnumerable<Product>> GetAll()
         {
-            return _context.Products.ToList();
+            return await _context.Products.ToListAsync();
         }
 
-        public Product GetById(Guid guid)
+        public async Task<Product> GetById(Guid guid)
         {
-            return _context.Products.Include(p => p.Categories).FirstOrDefault(p => p.Id == guid);
+            return await _context.Products.Include(p => p.Categories).FirstOrDefaultAsync(p => p.Id == guid);
         }
 
-        public Product Update(Product entity)
+        public async Task<Product> Update(Product entity)
         {
             throw new NotImplementedException();
         }
