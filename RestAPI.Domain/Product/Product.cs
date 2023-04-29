@@ -1,22 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RestAPI.Domain.Categories;
 
-namespace RestAPI.Domain.Product
+namespace RestAPI.Domain.Products
 {
-    internal class Product : IProduct
+    public class Product : IProduct
     {
-        public string Name { get; }
-        public string Description { get; }
-        public double Price { get; }
+        public Guid Id { get; private set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public virtual IList<Category> Categories { get; private set; }
+        public double Price { get; private set; }
 
-        public Product(ProductDto product)
+        private Product() { }
+        public Product(ProductCreateDto product)
         {
+            Id = Guid.NewGuid();
             Name = product.Name;
             Description = product.Description;
             Price = product.Price;
+            Categories = new List<Category>();
         }
     }
 }

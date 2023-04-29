@@ -1,15 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RestAPI.Domain.Categories;
+using System.ComponentModel.DataAnnotations;
 
-namespace RestAPI.Domain.Product
+namespace RestAPI.Domain.Products
 {
-    internal interface IProduct
+    public interface IProduct
     {
+        [Key]
+        Guid Id { get; }
+        [Required]
+        [StringLength(100)]
         string Name { get; }
+        [Required]
+        [StringLength(200)]
         string Description { get; }
+        IList<Category> Categories { get; }
+        [Required]
         double Price { get; }
     }
 }

@@ -1,0 +1,12 @@
+D:\Workspace\Personal\RestAPI\RestAPI.Domain\bin\Debug\net6.0\RestAPI.Domain.deps.json
+D:\Workspace\Personal\RestAPI\RestAPI.Domain\bin\Debug\net6.0\RestAPI.Domain.dll
+D:\Workspace\Personal\RestAPI\RestAPI.Domain\bin\Debug\net6.0\RestAPI.Domain.pdb
+D:\Workspace\Personal\RestAPI\RestAPI.Domain\obj\Debug\net6.0\RestAPI.Domain.csproj.AssemblyReference.cache
+D:\Workspace\Personal\RestAPI\RestAPI.Domain\obj\Debug\net6.0\RestAPI.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Workspace\Personal\RestAPI\RestAPI.Domain\obj\Debug\net6.0\RestAPI.Domain.AssemblyInfoInputs.cache
+D:\Workspace\Personal\RestAPI\RestAPI.Domain\obj\Debug\net6.0\RestAPI.Domain.AssemblyInfo.cs
+D:\Workspace\Personal\RestAPI\RestAPI.Domain\obj\Debug\net6.0\RestAPI.Domain.csproj.CoreCompileInputs.cache
+D:\Workspace\Personal\RestAPI\RestAPI.Domain\obj\Debug\net6.0\RestAPI.Domain.dll
+D:\Workspace\Personal\RestAPI\RestAPI.Domain\obj\Debug\net6.0\refint\RestAPI.Domain.dll
+D:\Workspace\Personal\RestAPI\RestAPI.Domain\obj\Debug\net6.0\RestAPI.Domain.pdb
+D:\Workspace\Personal\RestAPI\RestAPI.Domain\obj\Debug\net6.0\ref\RestAPI.Domain.dll
