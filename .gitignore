@@ -1,0 +1,33 @@
+# .NET Core artifacts
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.csproj.user
+*.userprefs
+*.psess
+*.vsp
+*.vshost.exe
+*.vsix
+*.vsixmanifest
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+[Bb]in/
+[Oo]bj/
+
+# .NET Core 6-specific files
+*.dll
+*.exe
+*.pdb
+*.log
+*.config
+*.appsettings.json
