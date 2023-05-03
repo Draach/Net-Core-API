@@ -26,7 +26,7 @@ namespace RestAPI.Controllers
         public async Task<ActionResult<UserDto>> GetById(int id)
         {
             User user = await _usersRepository.GetById(id);
-            if(user is null)  return NotFound();
+            if (user is null) return NotFound();
             return Ok(new UserDto()
             {
                 UserName = user.UserName,
@@ -34,20 +34,34 @@ namespace RestAPI.Controllers
         }
 
         [HttpPost("/login")]
-        public async Task<IActionResult> Login(string userName)
+        public async Task<IActionResult> Login(UserCreateDto userDto)
         {
-            User user = await _usersRepository.GetByUserName(userName);
-            if (user is null)
+            // TODO: Compare encrypted passwords.
+            ActionResult responseActionResult;
+            try
             {
-                return NotFound();
+                User user = await _usersRepository.GetByUserName(userDto.UserName);
+                if (user is null || (userDto.Password != user.Password))
+                {
+                    responseActionResult = Unauthorized();
+                }
+                else
+                {
+                    responseActionResult = Ok(new { token = GenerateToken(user.UserName) });
+                }
+            }
+            catch (Exception ex)
+            {
+                responseActionResult = StatusCode(500, "An error occurred while processing your request.");
             }
 
-            return Ok(new { token = GenerateToken(userName) });
+            return responseActionResult;
         }
 
         [HttpPost("/register")]
         public async Task<ActionResult<UserDto>> Register(UserCreateDto userCreateDto)
         {
+            // TODO: Encrypt passwords.
             User user = new User(userCreateDto);
             await _usersRepository.Add(user);
             return CreatedAtAction(nameof(GetById), new { id = user.Id }, new UserDto() { UserName = user.UserName });

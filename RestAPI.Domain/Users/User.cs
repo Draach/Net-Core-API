@@ -17,6 +17,7 @@ namespace RestAPI.Domain.Users
         public User(UserCreateDto userCreateDto)
         {
             UserName = userCreateDto.UserName;
+            Password = userCreateDto.Password;
         }
     }
 }
