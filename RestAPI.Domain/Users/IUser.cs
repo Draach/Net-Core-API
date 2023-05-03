@@ -4,5 +4,6 @@
     {
         int Id { get; }
         string UserName { get; }
+        string Password { get; }
     }
 }

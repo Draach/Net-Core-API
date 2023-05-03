@@ -9,6 +9,7 @@ namespace RestAPI.Domain.Users
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; private set; }
         public string UserName { get; private set; }
+        public string Password { get; private set; }
         private User()
         {
         }
